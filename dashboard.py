@@ -48,12 +48,12 @@ match ratenzahlung:
     case "nachschüssig":
         nenner = (m + i/2 * (m-1))
 r = R / nenner
-st.markdown(f"monatliche Tilgung: {round(r)}€")
-annuitaet = r*m*laufzeit
-st.markdown(f"Annuität: {round(annuitaet/1000)} Tausend €")
-kreditkosten = kosten-annuitaet
+st.markdown(f"monatliche Rate: {round(r)}€")
+kreditvolumen = r*m*laufzeit
+st.markdown(f"Kreditvolumen: {round(kreditvolumen/1000)} Tausend €")
+kreditkosten = kreditvolumen-finanzierungsbetrag
 st.markdown(f"Kreditkosten: {round(kreditkosten/1000)} Tausend €")
-st.markdown(f"Kreditkostenanteil: {round(kreditkosten/annuitaet*100)}%")
+st.markdown(f"Kreditkostenanteil: {round(kreditkosten/kreditvolumen*100)}%")
 
 
 """
