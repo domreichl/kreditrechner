@@ -24,13 +24,10 @@ kosten = int(st.number_input("Vorhabenskosten [€]", value=300000, min_value=10
 eigenmittel = int(st.number_input("Eigenmittel[€]", value=100000, min_value=0, max_value=1000000, step=10000))
 zinssatz = st.slider("effektiver Zinssatz [%]", value=5.0, min_value=0.0, max_value=20.0, step=0.1)
 # Effektivzins = Nominalzins + Spesen + Bereitstellungsprovisionen + Kontoführungsentgelte + Bearbeitungsgebühren + Versicherungskosten
+# Achtung: Der Effektivzins erhöht sich zudem noch durch monatliche Ratenzahlung im Vergleich zur jährlichen Rate des Nominalzinses.
 laufzeit = st.slider("Laufzeit in Jahren", value=20, min_value=5, max_value=35, step=5)
 
-on = st.toggle("Ratenzahlung")
-if on:
-    st.write("vorschüssig")
-else:
-    st.write("nachschüssig")
+ratenzahlung = st.radio("Ratenzahlung", options=["vorschüssig", "nachschüssig"], index=0, horizontal=True)
 
 anteil_eigenmittel = round(eigenmittel / kosten * 100)
 finanzierungsbetrag = kosten - eigenmittel
@@ -41,14 +38,15 @@ else:
     st.markdown(f"Eigenmittelanteil: {anteil_eigenmittel}%")
 st.markdown(f"Finanzierungsbetrag: {finanzierungsbetrag}€")
 
-# TILGUNGSFORMEL
+# TILGUNGSFORMEL lt. https://de.wikipedia.org/wiki/Annuit%C3%A4tendarlehen
 m = 12
-a = ((1+zinssatz/100)**laufzeit * zinssatz) / ((1+zinssatz/100)**laufzeit - 1)
-if on:
-    b = (m + zinssatz/2 * (m+1))
-else:
-    b = (m + zinssatz/2 * (m-1))
-r = a / b
+R = finanzierungsbetrag * ((1+zinssatz/100)**laufzeit * zinssatz) / ((1+zinssatz/100)**laufzeit - 1)
+match ratenzahlung:
+    case "vorschüssig":
+        nenner = (m + zinssatz/2 * (m+1))
+    case "nachschüssig":
+        nenner = (m + zinssatz/2 * (m-1))
+r = R / nenner
 st.markdown(f"monatliche Tilgung: {r}€")
 gesamtkosten = r*m*laufzeit
 st.markdown(f"Gesamtkosten: {gesamtkosten}€")
