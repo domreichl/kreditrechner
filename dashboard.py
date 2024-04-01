@@ -23,10 +23,10 @@ st.set_page_config(
 st.title("Kreditrechner für Eigenheim")
 
 st.markdown("Vorhabenskosten")
-kosten = int(st.number_input("Vorhabenskosten [€]", value=300000, min_value=100000, max_value=1000000))
+kosten = int(st.number_input("Vorhabenskosten [€]", value=300000, min_value=100000, max_value=1000000, step=50000))
 
 st.markdown("Eigenmittel")
-eigenmittel = int(st.number_input("Eigenmittel[€]", value=100000, min_value=0, max_value=1000000))
+eigenmittel = int(st.number_input("Eigenmittel[€]", value=100000, min_value=0, max_value=1000000, step=10000))
 # 20-100% (darunter Error, darüber Kreditkosten=0€)
 
 anteil_eigenmittel = round(eigenmittel / kosten * 100)
