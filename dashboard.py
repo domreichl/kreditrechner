@@ -41,7 +41,7 @@ finanzierungsbetrag = kosten - eigenmittel
 st.text(f"Finanzierungsbetrag: {finanzierungsbetrag}€")
 
 st.markdown("Zinssatzzz")
-zinssatz = st.slider("Zinssatz", vaue=4.6, min_value=0.0, max_value=10.0)
+zinssatz = st.slider("Zinssatz", value=4.6, min_value=0.0, max_value=10.0)
 st.text(f"Zinssatz: {zinsastz}%")
 
 st.markdown("monatliche Rate")
