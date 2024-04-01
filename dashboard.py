@@ -40,12 +40,13 @@ st.markdown(f"Finanzierungsbetrag: {finanzierungsbetrag}€")
 
 # TILGUNGSFORMEL lt. https://de.wikipedia.org/wiki/Annuit%C3%A4tendarlehen
 m = 12
-R = finanzierungsbetrag * ((1+zinssatz/100)**laufzeit * zinssatz/100) / ((1+zinssatz/100)**laufzeit - 1)
+i = zinssatz / 100
+R = finanzierungsbetrag * ((1+i)**laufzeit * i) / ((1+i)**laufzeit - 1)
 match ratenzahlung:
     case "vorschüssig":
-        nenner = (m + zinssatz/2 * (m+1))
+        nenner = (m + i/2 * (m+1))
     case "nachschüssig":
-        nenner = (m + zinssatz/2 * (m-1))
+        nenner = (m + i/2 * (m-1))
 r = R / nenner
 st.markdown(f"monatliche Tilgung: {round(r)}€")
 annuitaet = r*m*laufzeit
