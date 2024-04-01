@@ -39,6 +39,7 @@ else:
 st.markdown(f"Finanzierungsbetrag: {finanzierungsbetrag}€")
 
 # TILGUNGSFORMEL lt. https://de.wikipedia.org/wiki/Annuit%C3%A4tendarlehen
+st.text("TEST")
 m = 12
 i = zinssatz / 100
 R = finanzierungsbetrag * ((1+i)**laufzeit * i) / ((1+i)**laufzeit - 1)
