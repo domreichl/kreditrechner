@@ -3,8 +3,12 @@ import pandas as pd
 import streamlit as st
 import plotly.express as px
 import plotly.graph_objects as go
-from pathlib import Path
 
+st.set_page_config(
+    page_title="Kreditrechner",
+    layout="centered",
+    initial_sidebar_state="collapsed",
+)
 
 # toggle: Kreditkosten vs. Gesamtkosten-Eigenmittel
 # Laufzeit 5-35 Jahre (in 5er-Schritten, länger nicht erlaubt)
@@ -13,36 +17,28 @@ from pathlib import Path
 TODO: miteinrechnen: laufende Mietkosten & monatliches Sparen pro Jahr -> Veränderung
 
 
-st.set_page_config(
-    page_title="Kreditrechner",
-    layout="centered",
-    initial_sidebar_state="collapsed",
-)
+
 '''
 
-st.title("Kreditrechner für Eigenheim")
+st.title("Kreditrechner")
 
 st.markdown("Vorhabenskosten")
 kosten = int(st.number_input("Vorhabenskosten [€]", value=300000, min_value=100000, max_value=1000000, step=50000))
 
 st.markdown("Eigenmittel")
 eigenmittel = int(st.number_input("Eigenmittel[€]", value=100000, min_value=0, max_value=1000000, step=10000))
-# 20-100% (darunter Error, darüber Kreditkosten=0€)
 
 anteil_eigenmittel = round(eigenmittel / kosten * 100)
 
 if anteil_eigenmittel < 20:
-    st.text(f"Achtung: Eigenmittelanteil muss über 20% liegen!")
+    st.markdown(f"Achtung: Eigenmittelanteil muss über 20% liegen!")
 else:
-    st.text(f"Eigenmittelanteil: {anteil_eigenmittel}%")
+    st.markdown(f"Eigenmittelanteil: {anteil_eigenmittel}%")
 
-st.markdown("Finanzierungsbetrag")
 finanzierungsbetrag = kosten - eigenmittel
-st.text(f"Finanzierungsbetrag: {finanzierungsbetrag}€")
+st.markdown(f"Finanzierungsbetrag: {finanzierungsbetrag}€")
 
-st.markdown("Zinssatzzz")
 zinssatz = st.slider("Zinssatz", value=4.6, min_value=0.0, max_value=10.0)
-st.text(f"Zinssatz: {zinsastz}%")
 
 st.markdown("monatliche Rate")
 
