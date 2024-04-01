@@ -18,10 +18,10 @@ TODO: miteinrechnen: laufende Mietkosten & monatliches Sparen pro Jahr -> Verän
 
 '''
 
-st.title("Kreditrechner")
+st.title("Rechner für monatliches Tilgungsdarlehen")
 
 kosten = int(st.number_input("Vorhabenskosten [€]", value=300000, min_value=100000, max_value=1000000, step=10000))
-eigenmittel = int(st.number_input("Eigenmittel[€]", value=100000, min_value=0, max_value=1000000, step=10000))
+eigenmittel = int(st.number_input("Eigenmittel[€]", value=100000, min_value=0, max_value=kosten, step=10000))
 zinssatz = st.slider("effektiver Zinssatz [%]", value=5.0, min_value=0.0, max_value=20.0, step=0.1)
 # Effektivzins = Nominalzins + Spesen + Bereitstellungsprovisionen + Kontoführungsentgelte + Bearbeitungsgebühren + Versicherungskosten
 # Achtung: Der Effektivzins erhöht sich zudem noch durch monatliche Ratenzahlung im Vergleich zur jährlichen Rate des Nominalzinses.
