@@ -20,10 +20,17 @@ TODO: miteinrechnen: laufende Mietkosten & monatliches Sparen pro Jahr -> Verän
 
 st.title("Kreditrechner")
 
-kosten = int(st.number_input("Vorhabenskosten [€]", value=300000, min_value=100000, max_value=1000000, step=50000))
+kosten = int(st.number_input("Vorhabenskosten [€]", value=300000, min_value=100000, max_value=1000000, step=10000))
 eigenmittel = int(st.number_input("Eigenmittel[€]", value=100000, min_value=0, max_value=1000000, step=10000))
-zinssatz = st.slider("Zinssatz [%]", value=4.6, min_value=0.0, max_value=10.0, step=0.1)
-laufzeit = st.slider("Laufzeit [Jahre]", value=20, min_value=5, max_value=35, step=5)
+zinssatz = st.slider("effektiver Zinssatz [%]", value=5.0, min_value=0.0, max_value=20.0, step=0.1)
+# Effektivzins = Nominalzins + Spesen + Bereitstellungsprovisionen + Kontoführungsentgelte + Bearbeitungsgebühren + Versicherungskosten
+laufzeit = st.slider("Laufzeit in Jahren", value=20, min_value=5, max_value=35, step=5)
+
+on = st.toggle("Ratenzahlung")
+if on:
+    st.write("vorschüssig")
+else:
+    st.write("nachschüssig")
 
 anteil_eigenmittel = round(eigenmittel / kosten * 100)
 finanzierungsbetrag = kosten - eigenmittel
@@ -34,13 +41,20 @@ else:
     st.markdown(f"Eigenmittelanteil: {anteil_eigenmittel}%")
 st.markdown(f"Finanzierungsbetrag: {finanzierungsbetrag}€")
 
-st.markdown("monatliche Rate")
-
-st.markdown("Gesamtkosten")
-
-st.markdown("Zinskosten")
-
-st.markdown("Zinskostenanteil")
+# TILGUNGSFORMEL
+m = 12
+a = ((1+zinssatz/100)**laufzeit * zinssatz) / ((1+zinssatz/100)**laufzeit - 1)
+if on:
+    b = (m + zinssatz/2 * (m+1))
+else:
+    b = (m + zinssatz/2 * (m-1))
+r = a / b
+st.markdown(f"monatliche Tilgung: {r}€")
+gesamtkosten = r*m*laufzeit
+st.markdown(f"Gesamtkosten: {gesamtkosten}€")
+kreditkosten = gesamtkosten-kosten
+st.markdown(f"Kreditkosten: {kreditkosten}")
+st.markdown(f"Kreditkostenanteil: {round(kreditkosten/gesamtkosten*100)}%")
 
 
 """
