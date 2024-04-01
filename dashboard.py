@@ -52,7 +52,7 @@ annuitaet = r*m*laufzeit
 st.markdown(f"Annuität: {round(annuitaet/1000)} Tausend €")
 kreditkosten = kosten-annuitaet
 st.markdown(f"Kreditkosten: {round(kreditkosten/1000)} Tausend €")
-st.markdown(f"Kreditkostenanteil: {round(kreditkosten/gesamtkosten*100)}%")
+st.markdown(f"Kreditkostenanteil: {round(kreditkosten/annuitaet*100)}%")
 
 
 """
