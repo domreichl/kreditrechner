@@ -11,13 +11,14 @@ from pathlib import Path
 
 '''
 TODO: miteinrechnen: laufende Mietkosten & monatliches Sparen pro Jahr -> Veränderung
-'''
+
 
 st.set_page_config(
     page_title="Kreditrechner",
     layout="centered",
     initial_sidebar_state="collapsed",
 )
+'''
 
 st.title("Kreditrechner für Eigenheim")
 
