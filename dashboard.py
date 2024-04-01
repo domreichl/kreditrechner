@@ -48,9 +48,9 @@ match ratenzahlung:
         nenner = (m + zinssatz/2 * (m-1))
 r = R / nenner
 st.markdown(f"monatliche Tilgung: {round(r)}€")
-gesamtkosten = r*m*laufzeit
-st.markdown(f"Gesamtkosten: {round(gesamtkosten/1000)} Tausend €")
-kreditkosten = gesamtkosten-kosten
+annuitaet = r*m*laufzeit
+st.markdown(f"Annuität: {round(annuitaet/1000)} Tausend €")
+kreditkosten = kosten-annuitaet
 st.markdown(f"Kreditkosten: {round(kreditkosten/1000)} Tausend €")
 st.markdown(f"Kreditkostenanteil: {round(kreditkosten/gesamtkosten*100)}%")
 
