@@ -46,8 +46,10 @@ st.markdown(f":blue[Eigenmittelanteil: {round(eigenmittel / kosten * 100)}%]")
 st.markdown(f":blue[monatliche Rate: {monatliche_rate:,}€]".replace(",", "."))
 st.markdown(f":blue[Finanzierungsbetrag: {finanzierungsbetrag:,}€]".replace(",", "."))
 st.markdown(f":blue[Finanzierungskosten: {finanzierungskosten:,}€]".replace(",", "."))
-st.markdown(f":blue[Kreditkosten: {kreditkosten:,}€"])
-st.markdown(f":blue[Kreditkostenanteil: {round(kreditkosten/finanzierungskosten*100)}%]")
+st.markdown(f":blue[Kreditkosten: {kreditkosten:,}€]".replace(",", "."))
+st.markdown(
+    f":blue[Kreditkostenanteil: {round(kreditkosten/finanzierungskosten*100)}%]"
+)
 
 
 st.header("Rechner für Mietkosten")
