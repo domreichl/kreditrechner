@@ -29,7 +29,7 @@ eigenmittel = int(
     )
 )
 zinssatz = st.slider(
-    "effektiver Zinssatz in %", value=5.0, min_value=1.0, max_value=20.0, step=0.1
+    "Effektivzins in %", value=5.0, min_value=1.0, max_value=20.0, step=0.1
 )
 # Effektivzins = Nominalzins + Spesen + Bereitstellungsprovisionen + Kontoführungsentgelte + Bearbeitungsgebühren + Versicherungskosten
 # Achtung: Der Effektivzins erhöht sich zudem noch durch monatliche Ratenzahlung im Vergleich zur jährlichen Rate des Nominalzinses.
@@ -51,12 +51,12 @@ st.markdown(
     f":blue[Finanzierungsbetrag: **{finanzierungsbetrag:,}€**]".replace(",", ".")
 )
 st.markdown(
-    f":blue[Finanzierungskosten: **{finanzierungskosten:,}€** (**{monatliche_rate:,}€** monatliche Rate)]".replace(
-        ",", "."
-    )
+    f":blue[Finanzierungskosten: **{finanzierungskosten:,}€**]".replace(",", ".")
 )
+st.markdown(f":blue[Monatsrate: **{monatliche_rate:,}€**]".replace(",", "."))
+st.markdown(f":blue[Kreditkosten: **{kreditkosten:,}€**]".replace(",", "."))
 st.markdown(
-    f":blue[Kreditkosten: **{kreditkosten:,}€** (**{round(kreditkosten/finanzierungskosten*100)}%** der Finanzierungskosten)]".replace(
+    f":blue[Kreditkostenanteil: **{round(kreditkosten/finanzierungskosten*100)}%**]".replace(
         ",", "."
     )
 )
