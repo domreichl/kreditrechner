@@ -24,7 +24,7 @@ eigenmittel = int(
     st.number_input(
         "Eigenmittel [€]",
         value=100000,
-        min_value=kosten * 0.2,
+        min_value=int(kosten * 0.2),
         max_value=kosten,
         step=10000,
     )
