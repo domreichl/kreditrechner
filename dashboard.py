@@ -42,8 +42,8 @@ monatliche_rate, finanzierungskosten = berechne_unterjaehrige_annuitaetentilgung
     finanzierungsbetrag, zinssatz, laufzeit, ratenzahlung
 )
 kreditkosten = finanzierungskosten - finanzierungsbetrag
-st.markdown(f":white[Eigenmittelanteil: **{round(eigenmittel / kosten * 100)}%**]")
-st.markdown(f":white[monatliche Rate: **{monatliche_rate:,}€**]".replace(",", "."))
+st.markdown(f":blue[Eigenmittelanteil: **{round(eigenmittel / kosten * 100)}%**]")
+st.markdown(f":blue[monatliche Rate: **{monatliche_rate:,}€**]".replace(",", "."))
 st.markdown(
     f":white[Finanzierungsbetrag: **{finanzierungsbetrag:,}€**]".replace(",", ".")
 )
@@ -52,7 +52,7 @@ st.markdown(
 )
 st.markdown(f":white[Kreditkosten: **{kreditkosten:,}€**]".replace(",", "."))
 st.markdown(
-    f":white[Kreditkostenanteil: **{round(kreditkosten/finanzierungskosten*100)}%**]"
+    f":blue[Kreditkostenanteil: **{round(kreditkosten/finanzierungskosten*100)}%**]"
 )
 
 
@@ -72,4 +72,4 @@ steigerungsfrequenz = st.slider(
 mietkosten = berechne_mietkosten(
     startmietzins, mietdauer, preissteigerung, steigerungsfrequenz
 )
-st.markdown(f":white[Mietkosten: **{mietkosten:,}€**]".replace(",", "."))
+st.markdown(f":blue[Mietkosten: **{mietkosten:,}€**]".replace(",", "."))
