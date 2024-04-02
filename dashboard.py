@@ -45,12 +45,12 @@ kreditkosten = finanzierungskosten - finanzierungsbetrag
 st.markdown(f":blue[Eigenmittelanteil: **{round(eigenmittel / kosten * 100)}%**]")
 st.markdown(f":blue[monatliche Rate: **{monatliche_rate:,}€**]".replace(",", "."))
 st.markdown(
-    f":white[Finanzierungsbetrag: **{finanzierungsbetrag:,}€**]".replace(",", ".")
+    f":blue[Finanzierungsbetrag: **{finanzierungsbetrag:,}€**]".replace(",", ".")
 )
 st.markdown(
-    f":white[Finanzierungskosten: **{finanzierungskosten:,}€**]".replace(",", ".")
+    f":blue[Finanzierungskosten: **{finanzierungskosten:,}€**]".replace(",", ".")
 )
-st.markdown(f":white[Kreditkosten: **{kreditkosten:,}€**]".replace(",", "."))
+st.markdown(f":blue[Kreditkosten: **{kreditkosten:,}€**]".replace(",", "."))
 st.markdown(
     f":blue[Kreditkostenanteil: **{round(kreditkosten/finanzierungskosten*100)}%**]"
 )
