@@ -43,17 +43,17 @@ monatliche_rate, finanzierungskosten = berechne_unterjaehrige_annuitaetentilgung
 )
 kreditkosten = finanzierungskosten - finanzierungsbetrag
 st.markdown(
-    f":blue[**{finanzierungsbetrag:,}€** Finanzierungsbetrag bei **{round(eigenmittel / kosten * 100)}%** Eigenmittelanteil]".replace(
+    f":blue[Finanzierungsbetrag: **{finanzierungsbetrag:,}€** (bei **{round(eigenmittel / kosten * 100)}€** Eigenmittelanteil)]".replace(
         ",", "."
     )
 )
 st.markdown(
-    f":blue[**{finanzierungskosten:,}€** Finanzierungskosten (monatliche Rate von **{monatliche_rate:,}€**)]".replace(
+    f":blue[Finanzierungskosten: **{finanzierungskosten:,}€** (**{monatliche_rate:,}€** monatliche Rate)]".replace(
         ",", "."
     )
 )
 st.markdown(
-    f":blue[**{kreditkosten:,}€** Kreditkosten (**{round(kreditkosten/finanzierungskosten*100)}%** der Finanzierungskosten)]".replace(
+    f":blue[Kreditkosten: **{kreditkosten:,}€** (**{round(kreditkosten/finanzierungskosten*100)}%** der Finanzierungskosten)]".replace(
         ",", "."
     )
 )
