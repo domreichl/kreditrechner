@@ -43,7 +43,7 @@ monatliche_rate, finanzierungskosten = berechne_unterjaehrige_annuitaetentilgung
 )
 kreditkosten = finanzierungskosten - finanzierungsbetrag
 st.markdown(
-    f":blue[Finanzierungsbetrag: **{finanzierungsbetrag:,}€**] (bei **{round(eigenmittel / kosten * 100)}€** Eigenmittelanteil)".replace(
+    f":blue[Finanzierungsbetrag: **{finanzierungsbetrag:,}€** (bei **{round(eigenmittel / kosten * 100)}€** Eigenmittelanteil)]".replace(
         ",", "."
     )
 )
@@ -64,10 +64,10 @@ startmietzins = st.number_input(
     "Startmietzins in €", value=500, min_value=400, max_value=2000, step=50
 )
 mietdauer = st.slider(
-    "Mietdauer in Jahren", value=45, min_value=5, max_value=65, step=5
+    "Mietdauer in Jahren", value=35, min_value=5, max_value=65, step=5
 )
 preissteigerung = st.slider(
-    "Preissteigerung in %", value=2.0, min_value=1.0, max_value=10.0, step=0.1
+    "Preissteigerung in %", value=6.0, min_value=1.0, max_value=12.0, step=0.1
 )
 steigerungsfrequenz = st.slider(
     "Steigerungsfrequenz in Jahren", value=3, min_value=1, max_value=10, step=1
