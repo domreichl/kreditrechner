@@ -48,9 +48,6 @@ st.markdown(
     )
 )
 st.markdown(
-    f":blue[Gesamtkosten: **{eigenmittel + finanzierungskosten:,}€**]".replace(",", ".")
-)
-st.markdown(
     f":blue[Finanzierungsbetrag: **{finanzierungsbetrag:,}€**]".replace(",", ".")
 )
 st.markdown(
@@ -62,6 +59,9 @@ st.markdown(
     f":blue[Kreditkosten: **{kreditkosten:,}€** (**{round(kreditkosten/finanzierungskosten*100)}%** der Finanzierungskosten)]".replace(
         ",", "."
     )
+)
+st.markdown(
+    f":blue[Gesamtkosten: **{eigenmittel + finanzierungskosten:,}€**]".replace(",", ".")
 )
 
 
