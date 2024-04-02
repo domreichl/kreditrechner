@@ -48,9 +48,7 @@ st.markdown(
     )
 )
 st.markdown(
-    f":blue[Gesamtkosten: **{eigenmittel + finanzierungskosten:,}€** (davon **{round(eigenmittel / kosten * 100)}%** Eigenmittel)]".replace(
-        ",", "."
-    )
+    f":blue[Gesamtkosten: **{eigenmittel + finanzierungskosten:,}€**]".replace(",", ".")
 )
 st.markdown(
     f":blue[Finanzierungsbetrag: **{finanzierungsbetrag:,}€**]".replace(",", ".")
