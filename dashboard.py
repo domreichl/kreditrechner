@@ -11,50 +11,57 @@ st.set_page_config(
     initial_sidebar_state="collapsed",
 )
 
-'''
-TODO: miteinrechnen: laufende Mietkosten & monatliches Sparen pro Jahr -> Veränderung
+st.markdown("##Rechner für monatliches Tilgungsdarlehen")
 
+def unterjaehrige_annuitaetentilgung(finanzierungsbetrag, effektivzins_pct, laufzeit, ratenzahlungstyp, m=12):
+    # https://de.wikipedia.org/wiki/Annuit%C3%A4tendarlehen
+    i = effektivzins_pct / 100
+    R = finanzierungsbetrag * ((1+i)**laufzeit * i) / ((1+i)**laufzeit - 1)
+    match ratenzahlungstyp:
+        case "nachschüssig":
+            nenner = (m + i/2 * (m-1))
+        case "vorschüssig":
+            nenner = (m + i/2 * (m+1))
+    r = R / nenner # monatliche Rate
+    return r, r*m*laufzeit
 
-
-'''
-
-st.title("Rechner für monatliches Tilgungsdarlehen")
-
+st.markdown("###Eingaben")
 kosten = int(st.number_input("Vorhabenskosten [€]", value=300000, min_value=100000, max_value=1000000, step=10000))
-eigenmittel = int(st.number_input("Eigenmittel [€]", value=100000, min_value=0, max_value=kosten, step=10000))
-zinssatz = st.slider("effektiver Zinssatz [%]", value=5.0, min_value=0.0, max_value=20.0, step=0.1)
+eigenmittel = int(st.number_input("Eigenmittel [€]", value=100000, min_value=kosten*0.2, max_value=kosten, step=10000))
+zinssatz = st.slider("effektiver Zinssatz [%]", value=5.0, min_value=1.0, max_value=20.0, step=0.1)
 # Effektivzins = Nominalzins + Spesen + Bereitstellungsprovisionen + Kontoführungsentgelte + Bearbeitungsgebühren + Versicherungskosten
 # Achtung: Der Effektivzins erhöht sich zudem noch durch monatliche Ratenzahlung im Vergleich zur jährlichen Rate des Nominalzinses.
 laufzeit = st.slider("Laufzeit in Jahren", value=20, min_value=5, max_value=35, step=5)
+ratenzahlung = st.radio("Ratenzahlung", options=["nachschüssig", "vorschüssig"], index=0, horizontal=True)
 
-ratenzahlung = st.radio("Ratenzahlung", options=["vorschüssig", "nachschüssig"], index=0, horizontal=True)
-
+st.markdown("###Berechnung")
 anteil_eigenmittel = round(eigenmittel / kosten * 100)
 finanzierungsbetrag = kosten - eigenmittel
-
-if anteil_eigenmittel < 20:
-    st.markdown(f"Achtung: Eigenmittelanteil muss über 20% liegen!")
-else:
-    st.markdown(f"Eigenmittelanteil: {anteil_eigenmittel}%")
-st.markdown(f"Finanzierungsbetrag: {finanzierungsbetrag}€")
-
-# TILGUNGSFORMEL lt. https://de.wikipedia.org/wiki/Annuit%C3%A4tendarlehen
-st.text("TEST")
-m = 12
-i = zinssatz / 100
-R = finanzierungsbetrag * ((1+i)**laufzeit * i) / ((1+i)**laufzeit - 1)
-match ratenzahlung:
-    case "vorschüssig":
-        nenner = (m + i/2 * (m+1))
-    case "nachschüssig":
-        nenner = (m + i/2 * (m-1))
-r = R / nenner
-st.markdown(f"monatliche Rate: {round(r)}€")
-kreditvolumen = r*m*laufzeit
-st.markdown(f"Kreditvolumen: {round(kreditvolumen/1000)} Tausend €")
-kreditkosten = kreditvolumen-finanzierungsbetrag
+monatliche_rate, finanzierungskosten = unterjaehrige_annuitaetentilgung(finanzierungsbetrag, zinssatz, laufzeit, ratenzahlung)
+kreditkosten = finanzierungskosten-finanzierungsbetrag
+st.markdown(f"Eigenmittelanteil: {anteil_eigenmittel}%")
+st.markdown(f"monatliche Rate: {round(monatliche_rate)}€")
+st.markdown(f"Finanzierungsbetrag: {round(finanzierungsbetrag/1000)} Tausend €")
+st.markdown(f"Finanzierungskosten: {round(finanzierungskosten/1000)} Tausend €")
 st.markdown(f"Kreditkosten: {round(kreditkosten/1000)} Tausend €")
-st.markdown(f"Kreditkostenanteil: {round(kreditkosten/kreditvolumen*100)}%")
+st.markdown(f"Kreditkostenanteil: {round(kreditkosten/finanzierungskosten*100)}%")
+
+
+st.markdown("##Rechner für Mietkosten")
+
+st.markdown("###Eingaben")
+startmietzins = st.number_input("Startmietzins [€]", value=500, min_value=400, max_value=2000, step=50)
+preissteigerung = st.slider("Preissteigerung [%]", value=2.0, min_value=1.0, max_value=10.0, step=0.1)
+steigerungsfrequenz = st.slider("Steigerungsfrequenz in Jahren", value=3, min_value=1, max_value=10, step=1)
+mietdauer = st.slider("Mietdauer in Jahren", value=45, min_value=5, max_value=65, step=5)
+
+st.markdown("###Berechnung")
+n_steigerungen = mietdauer / steigerungsfrequenz - 1
+basiskosten = startmietzins * mietdauer * 12
+q = 1 + preissteigerung / 100
+mietkosten = basiskosten * q**n_steigerungen
+st.markdown(f"Mietkosten für {mietdauer} Jahre: {round(mietkosten/1000)} Tausend €")
+
 
 
 """
